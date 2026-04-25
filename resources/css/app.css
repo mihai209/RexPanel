@@ -1,0 +1,75 @@
+@import 'tailwindcss';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Outfit', sans-serif;
+}
+
+:root {
+    --bg-main: #1a2035;
+    --bg-surface: #151c2c;
+    --accent: #36d399;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: #e2e8f0;
+}
+
+body.theme-m-bunicii {
+    background: linear-gradient(rgba(20, 39, 28, 0.90), rgba(20, 39, 28, 0.95)), url('/themes/m-bunicii.png') center/cover no-repeat fixed;
+}
+
+body.theme-azure {
+    background: linear-gradient(rgba(5, 26, 45, 0.68), rgba(6, 20, 36, 0.84)), url('https://wallpapers.com/images/featured/azure-dw6cswed15qk49l2.jpg') center/cover no-repeat fixed;
+}
+
+body.theme-discord-l {
+    background: linear-gradient(rgba(18, 23, 37, 0.7), rgba(12, 15, 24, 0.86)), url('https://cdn.prod.website-files.com/5f9072399b2640f14d6a2bf4/67d0c4e0932bb59c7f6271e5_2024_10_DiscordBlog_UsingDiscord-1.png') center/cover no-repeat fixed;
+}
+
+body.theme-easter {
+    background: linear-gradient(rgba(255, 244, 250, 0.85), rgba(236, 248, 255, 0.9)), url('/themes/easter.png') center/cover no-repeat fixed;
+}
+
+body.theme-gothic {
+    background: linear-gradient(rgba(19, 7, 13, 0.8), rgba(12, 6, 10, 0.9)), url('https://t4.ftcdn.net/jpg/02/00/99/09/360_F_200990953_ZUQhJDEQGCmJ10H9mLq8XjEckDQQjau9.jpg') center/cover no-repeat fixed;
+}
+
+body.theme-hacker {
+    background: linear-gradient(rgba(3, 8, 7, 0.85), rgba(7, 17, 14, 0.9)), url('/themes/hacker.png') center/cover no-repeat fixed;
+}
+
+body.theme-sky-islands-fantasy {
+    background: linear-gradient(rgba(14, 42, 85, 0.6), rgba(12, 26, 52, 0.75)), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1280&q=60&fm=webp') center/cover no-repeat fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Hide spin buttons in input[type="number"] */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

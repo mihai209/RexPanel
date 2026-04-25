@@ -1,0 +1,307 @@
+RA-panel VPS setup dependencies
+================================
+
+This file is a practical inventory for this checkout.
+It lists:
+- PHP and system dependencies
+- Composer packages from composer.json
+- Node packages from package.json
+- Useful setup and runtime commands
+
+
+1. Core runtime versions
+------------------------
+
+- PHP: 8.3+
+- Composer: 2.x
+- Node.js: 18+ recommended
+- npm: current npm that matches Node 18/20
+
+
+2. PHP extensions
+-----------------
+
+Required or strongly expected by this checkout:
+
+- bcmath
+- ctype
+- curl
+- dom
+- fileinfo
+- gd
+- iconv
+- json
+- mbstring
+- openssl
+- pdo
+- pdo_sqlite or pdo_mysql
+- session
+- sodium
+- tokenizer
+- xml
+- xmlreader
+- xmlwriter
+- zip
+
+Used in the current local environment and useful for panel features:
+
+- mysqli
+- mysqlnd
+- pcntl
+- posix
+- redis
+- simplexml
+- sockets
+- sqlite3
+- xsl
+- zlib
+- opcache
+
+Common Debian/Ubuntu package form:
+
+```bash
+sudo apt update
+sudo apt install -y \
+  php8.3 php8.3-cli php8.3-fpm php8.3-common \
+  php8.3-bcmath php8.3-curl php8.3-gd php8.3-mbstring \
+  php8.3-mysql php8.3-sqlite3 php8.3-xml php8.3-zip \
+  php8.3-opcache php8.3-redis composer \
+  nodejs npm sqlite3 git unzip curl
+```
+
+If you use MariaDB/MySQL only, `pdo_mysql` is enough.
+If you use SQLite only, `pdo_sqlite` and `sqlite3` are enough.
+
+
+3. Composer dependencies
+------------------------
+
+Production:
+
+- php ^8.3
+- laravel/framework ^13.0
+- laravel/reverb ^1.0
+- laravel/sanctum ^4.0
+- laravel/socialite ^5.26
+- laravel/tinker ^3.0
+- socialiteproviders/discord ^4.2
+- socialiteproviders/manager ^4.9
+- socialiteproviders/reddit ^4.2
+- workerman/workerman ^5.1
+
+Development:
+
+- fakerphp/faker ^1.23
+- laravel/pail ^1.2.5
+- laravel/pint ^1.27
+- mockery/mockery ^1.6
+- nunomaduro/collision ^8.6
+- phpunit/phpunit ^12.5.12
+
+Install:
+
+```bash
+composer install
+```
+
+Production install:
+
+```bash
+composer install --no-dev --optimize-autoloader
+```
+
+
+4. Frontend dependencies
+------------------------
+
+Production dependencies:
+
+- @emotion/react ^11.14.0
+- @emotion/styled ^11.14.1
+- @mui/icons-material ^9.0.0
+- @mui/material ^9.0.0
+- @vitejs/plugin-react ^6.0.1
+- axios ^1.15.1
+- framer-motion ^12.38.0
+- lucide-react ^1.8.0
+- qrcode ^1.5.4
+- react ^19.2.5
+- react-dom ^19.2.5
+- react-router-dom ^7.14.1
+
+Dev dependencies:
+
+- @tailwindcss/vite ^4.0.0
+- concurrently ^9.0.1
+- laravel-vite-plugin ^3.0.0
+- tailwindcss ^4.0.0
+- vite ^8.0.0
+
+Install:
+
+```bash
+npm install
+```
+
+Build:
+
+```bash
+npm run build
+```
+
+
+5. Laravel / panel setup commands
+---------------------------------
+
+First-time setup:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate --force
+composer install
+npm install
+npm run build
+```
+
+One-command setup from composer.json:
+
+```bash
+composer run setup
+```
+
+If using SQLite:
+
+```bash
+mkdir -p database
+touch database/database.sqlite
+```
+
+
+6. Useful runtime commands
+--------------------------
+
+Laravel app server:
+
+```bash
+php artisan serve
+```
+
+Queue worker:
+
+```bash
+php artisan queue:listen --tries=1 --timeout=0
+```
+
+Connector API websocket server:
+
+```bash
+php artisan app:connector-server start
+```
+
+UI websocket server:
+
+```bash
+php artisan app:ui-websocket start
+```
+
+Frontend dev server:
+
+```bash
+npm run dev
+```
+
+Combined local dev from composer.json:
+
+```bash
+composer run dev
+```
+
+
+7. Useful maintenance/test commands
+-----------------------------------
+
+Run all tests:
+
+```bash
+php artisan test
+```
+
+Composer test script:
+
+```bash
+composer run test
+```
+
+Run formatter:
+
+```bash
+./vendor/bin/pint
+```
+
+Package discovery:
+
+```bash
+php artisan package:discover
+```
+
+Database optimization command present in app:
+
+```bash
+php artisan app:optimize-database
+```
+
+
+8. Extra notes for VPS deployment
+---------------------------------
+
+- Web root for Laravel is usually `public/`
+- You need writable permissions for:
+  - storage/
+  - bootstrap/cache/
+- If you use SQLite, keep `database/database.sqlite` writable by the PHP user
+- If you use websocket features, expose:
+  - app HTTP port
+  - connector websocket port
+  - UI websocket port
+- If you use Redis-backed features, install and enable Redis server plus `php-redis`
+
+
+9. Quick production example
+---------------------------
+
+```bash
+git clone <your-repo>
+cd app
+cp .env.example .env
+composer install --no-dev --optimize-autoloader
+npm install
+npm run build
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate --force
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+
+10. App-specific command inventory
+----------------------------------
+
+Custom Artisan commands found in this checkout:
+
+- php artisan app:connector-server start
+- php artisan app:ui-websocket start
+- php artisan app:init-database
+- php artisan app:optimize-database
+- php artisan app:create-user
+
+Package.json scripts found in this checkout:
+
+- npm run build
+- npm run dev
+- npm run health-test
+- npm run connector-api
+- npm run ui-websocket
