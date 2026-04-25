@@ -9,7 +9,8 @@ RextPanel under MIT License
 
 Install script : 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/mihai209/RexPanel/refs/heads/main/install.sh | bash
-```
+curl -fsSL https://raw.githubusercontent.com/mihai209/RexPanel/refs/heads/main/install.sh -o install.sh
+chmod +x install.sh
+sudo ./install.sh```
 
 Laravel Readme at : Laravel.md
