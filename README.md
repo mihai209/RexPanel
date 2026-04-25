@@ -6,3 +6,5 @@ And if you found any bugs you can make a PR.
 
 RexPanel is compatible with the existing Connector from CPanel Rocky.
 RextPanel under MIT License
+
+Laravel Readme at : Laravel.md
