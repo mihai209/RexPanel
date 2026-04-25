@@ -16,7 +16,7 @@ set -euo pipefail
 # - For SSL, the domain must already point to this server
 # - If you choose SQLite, the script creates the database file
 
-REPO_URL="https://github.com/mihai209/rex-panel.git"
+REPO_URL="https://github.com/mihai209/RexPanel.git"
 DEFAULT_DEV_DIR="$HOME/rex-panel"
 DEFAULT_WEB_DIR="/var/www/rex-panel"
 APP_DIR=""
